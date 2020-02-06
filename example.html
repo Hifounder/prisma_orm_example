@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>測試GraphQL送出資料</title>
+</head>
+
+<body>
+    <ol>
+        <li>記得要先開啟 <code>MySQL</code></li>
+        <li>記得要先開啟 <code>docker-compose up -d</code></li>
+        <li>記得要先開啟 <code>npm start</code></li>
+        <li>看 F12 console.log</li>
+    </ol>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <script>
+        window.onload = start;
+        axios.defaults.baseURL = 'http://localhost:3000';
+        axios.defaults.headers.post['Content-Type'] = 'application/application/json';
+        function start() {
+            axios.post('/',{
+                query: `mutation createUser($name: String!) {
+                    createUser(name:$name){
+                        id
+                        name
+                    }
+                }`,
+                variables: {
+                    name: 'Test'
+                }
+            }).then(res => console.log(res))
+                .catch(err => console.error(err))
+        };
+    </script>
+</body>
+</html>

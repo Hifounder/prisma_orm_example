@@ -1,0 +1,43 @@
+version: '3.5'
+
+networks:
+  local:
+    name: local
+
+services:
+  # db:
+  #   container_name: "mysql"
+  #   image: "mysql:5.7"
+  #   volumes:
+  #     - "./.data/:/var/lib/mysql"
+  #   command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
+  #   restart: always
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: "root"
+  #   ports:
+  #     - 3306:3306
+  #     - 33060:33060
+  #   networks:
+  #     - local
+  prisma:
+    container_name: "prisma"
+    image: prismagraphql/prisma:1.34
+    restart: always
+    ports:
+    - "${PRISMA_PORT}:${PRISMA_PORT}"
+    environment:
+      PRISMA_CONFIG: |
+        port: ${PRISMA_PORT}
+        # managementApiSecret: ${MYSQL_SECRET}
+        databases:
+          default:
+            connector: mysql
+            host: mysql
+            database: ${MYSQL_DATABASE}
+            user: ${MYSQL_USER}
+            password: ${MYSQL_PASSWORD}
+            rawAccess: true
+            port: '3306'
+            migrations: false
+    networks:
+      - local

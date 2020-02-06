@@ -1,0 +1,45 @@
+mutation {
+    # 新增 
+    createUser(data: {name:"zz", email:"zz@.com"}) {
+        id
+        name
+        email
+    }
+    # 修改
+    # updateUser(
+    #     data:{
+    #     email:"",
+    #     name:""
+    #     },
+    #     where:{
+    #     id:""
+    # }
+    # ){
+    #     id
+    #     name
+    #     email
+    # }
+
+    # 批量修改
+    # updateManyUsers(
+    # data:{
+    #     name:"ccc"
+    # },
+    # where:{
+    #     name_in:["Bob","vvv"]
+    # }){
+    #     count
+    # }
+
+    # 刪除
+    # deleteUser(where: {id:"qweqwe@gmail.com"}) {
+    #     id
+    # }
+    
+    # 批量刪除
+    # deleteManyUsers(where:{
+    #     name_in:["aaa"]
+    # }){
+    #     count
+    # }
+}
